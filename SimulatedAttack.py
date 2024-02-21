@@ -50,7 +50,6 @@ def simulated_attack(no_attackers, no_defenders):
         else:
             return 'L'
 
-
 if __name__ == '__main__':
     nsim = 100
     wins = 0
