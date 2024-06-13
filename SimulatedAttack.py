@@ -20,7 +20,7 @@ def simulated_attack(no_attackers, no_defenders):
                 return simulated_attack(no_attackers-2, no_defenders)
     elif no_attackers >= 3 and no_defenders == 1:
         if max(a1,a2,a3) > d1:
-            return 'W'
+            return [no_attackers, 0]
         else:
             return simulated_attack(no_attackers-1, no_defenders)
     elif no_attackers == 2 and no_defenders >= 2:
@@ -33,26 +33,26 @@ def simulated_attack(no_attackers, no_defenders):
             if sorted([a1,a2])[-2] > sorted([d1,d2])[-2]:
                 return simulated_attack(no_attackers-1, no_defenders-1)
             else:
-                return 'L'
+                return [0, no_defenders]
     elif no_attackers == 2 and no_defenders == 1:
         if max(a1, a2) > d1:
-            return 'W'
+            return [no_attackers, 0]
         else:
             return simulated_attack(1, 1)
     elif no_attackers == 1 and no_defenders >= 2:
         if a1 > max(d1, d2):
             return simulated_attack(1, no_defenders-1)
         else:
-            return 'L'
+            return [0, no_defenders]
     elif no_attackers == 1 and no_defenders == 1:
         if a1 > d1:
-            return 'W'
+            return [1, 0]
         else:
-            return 'L'
+            return [0, 1]
     elif no_attackers == 0:
-        return 'L'
+        return [0, no_defenders]
     elif no_defenders == 0:
-        return 'W'
+        return [no_attackers, 0]
 
 if __name__ == '__main__':
     nsim = 100
