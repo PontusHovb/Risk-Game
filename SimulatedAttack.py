@@ -12,10 +12,10 @@ def simulated_attack(no_attackers, no_defenders):
             if sorted([a1,a2,a3])[-2] > sorted([d1,d2])[-2]:
                 return simulated_attack(no_attackers, no_defenders-2)
             else:
-                return simulated_attack(no_attackers, no_defenders-1)
+                return simulated_attack(no_attackers-1, no_defenders-1)
         else:
             if sorted([a1,a2,a3])[-2] > sorted([d1,d2])[-2]:
-                return simulated_attack(no_attackers, no_defenders-1)
+                return simulated_attack(no_attackers-1, no_defenders-1)
             else:
                 return simulated_attack(no_attackers-2, no_defenders)
     elif no_attackers >= 3 and no_defenders == 1:
@@ -26,12 +26,12 @@ def simulated_attack(no_attackers, no_defenders):
     elif no_attackers == 2 and no_defenders >= 2:
         if sorted([a1,a2])[-1] > sorted([d1,d2])[-1]:
             if sorted([a1,a2])[-2] > sorted([d1,d2])[-2]:
-                return 'W'
+                return simulated_attack(no_attackers, no_defenders-2)
             else:
-                return simulated_attack(1, 1)
+                return simulated_attack(no_attackers-1, no_defenders-1)
         else:
             if sorted([a1,a2])[-2] > sorted([d1,d2])[-2]:
-                return simulated_attack(1, 1)
+                return simulated_attack(no_attackers-1, no_defenders-1)
             else:
                 return 'L'
     elif no_attackers == 2 and no_defenders == 1:
@@ -41,7 +41,7 @@ def simulated_attack(no_attackers, no_defenders):
             return simulated_attack(1, 1)
     elif no_attackers == 1 and no_defenders >= 2:
         if a1 > max(d1, d2):
-            return simulated_attack(1, 1)
+            return simulated_attack(1, no_defenders-1)
         else:
             return 'L'
     elif no_attackers == 1 and no_defenders == 1:
@@ -49,6 +49,10 @@ def simulated_attack(no_attackers, no_defenders):
             return 'W'
         else:
             return 'L'
+    elif no_attackers == 0:
+        return 'L'
+    elif no_defenders == 0:
+        return 'W'
 
 if __name__ == '__main__':
     nsim = 100
