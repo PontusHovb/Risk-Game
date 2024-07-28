@@ -1,13 +1,17 @@
 import numpy as np
 
 class TransitionMatrix():
-    def __init__(self, dim, states):
+    def __init__(self, dim, states, transition_matrix = None):
         if not dim == len(states):
             raise ValueError("Number of states must match dimension")
         
         self.dim = dim
         self.states = states
-        self.transition_prob = np.zeros((dim, dim))
+
+        if isinstance(transition_matrix, np.ndarray):
+            self.transition_prob = transition_matrix
+        else:
+            self.transition_prob = np.zeros((dim, dim))
 
     def __str__(self):
         # Fix formatting
@@ -71,23 +75,26 @@ class TransitionMatrix():
     def calculate_transition_prob(self, start_state):
         [a, d] = start_state
 
-        if not self.add_state(start_state):
-            return
-        elif a < 0 or d < 0:
+        # Check that state is valid
+        if a < 0 or d < 0:
             return
         elif a == 0 and d == 0:
             return
-        
+        elif not self.add_state(start_state):
+            return
+            
+        # Find equivalent state in max 3 attackers and max 2 defenders
         [eq_a, eq_d] = [min(a, 3), min(d, 2)]
         eq_start_state = [eq_a, eq_d]
         start_state_index = self.states.index(start_state)
         eq_start_state_index = self.states.index(eq_start_state)
 
+        # Recursive call for end states if they are valid
         end_states = [[a-2,d], [a,d-2], [a-1,d-1], [a-1,d], [a,d-1]]
         for end_state in end_states:
-            if self.add_state(end_state):
-                self.calculate_transition_prob(end_state)
+            self.calculate_transition_prob(end_state)        
 
+        # Calculate transition probability
         if min(a, d) >= 2:
             self.transition_prob[start_state_index, self.states.index([a-2,d])] = self.transition_prob[eq_start_state_index, self.states.index([eq_a-2, eq_d])]
             self.transition_prob[start_state_index, self.states.index([a,d-2])] = self.transition_prob[eq_start_state_index, self.states.index([eq_a, eq_d-2])]
@@ -107,6 +114,7 @@ def main():
     transition_matrix.update_transition_prob([0,1], [0,1], 1)
     transition_matrix.update_transition_prob([1,1], [0,1], 0.75)
     transition_matrix.update_transition_prob([1,1], [1,0], 0.25)
+    transition_matrix.calculate_transition_prob([2,1])
     stationary_distribution = transition_matrix.find_stationary_distribution([1,1])
     print(transition_matrix)
     print(stationary_distribution)
