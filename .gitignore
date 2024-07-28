@@ -1,4 +1,6 @@
 __pycache__
 .ipynb_checkpoints
 .DS_Store
-winning_probabilities.npy
+winning_probabilites.npy
+transition_matrix.npy
+states.txt
