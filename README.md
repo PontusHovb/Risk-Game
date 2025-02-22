@@ -1,3 +1,11 @@
+# Risk Game
+<p align="center">
+    <img src="https://github.com/PontusHovb/Risk-Game/blob/master/Images/RiskGame.jpeg" width="400"/>
+</p>
+Risk is a board game where the goal is to use your troops to capture territories and eliminate other players. Territories are captured in a battle when an attacker chooses to invade a territory of another player. The battle is simulated with dice roles where the attacker can attack with a maximum of 3 dices and the defender can have a maximum of 2 dices to defend themselves. In a battle the highest rolled dices are matched and the rest are discarded. If the attacker have troops left after an "attack" (dice roll) they can choose to attack again until the territory is captured (defender has no troops left) or the attacker has no more available troops.
+
+A single "attack" (dice roll) can have a maximum of 3 attackers and 2 defender. Therefore, if either player has more troops to their disposal the rest of the troops can't participate in the "attack" but can of course be saved to future "attacks"
+
 # Markov Chain
 <p align="center">
     <img src="https://github.com/PontusHovb/Risk-Game/blob/master/Images/MarkovChain_30troops.png" width="400"/>
